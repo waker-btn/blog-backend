@@ -4,7 +4,7 @@ import authorRouter from "./routes/authorRouter.js";
 
 const app = express();
 
-app.use("/author", authorRouter);
+app.use("/authors", authorRouter);
 app.get("/", (req, res) => {
   res.status(200).send("Hello, world!");
 });
