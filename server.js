@@ -1,10 +1,10 @@
 import express from "express";
 import "dotenv/config.js";
-import testRouter from "./routes/testRouter.js";
+import authorRouter from "./routes/authorRouter.js";
 
 const app = express();
 
-app.use("/test", testRouter);
+app.use("/author", authorRouter);
 app.get("/", (req, res) => {
   res.status(200).send("Hello, world!");
 });
