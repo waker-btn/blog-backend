@@ -10,7 +10,7 @@ async function getAuthorById (authorId) {
     "SELECT author_id, name, bio, date_joined FROM authors WHERE author_id = $1",
     [authorId]
   );
-  return rows;
+  return rows[0];
 }
 
 export { getAuthors, getAuthorById };
