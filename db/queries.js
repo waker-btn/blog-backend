@@ -5,4 +5,12 @@ async function getAuthors() {
   return rows;
 }
 
-export { getAuthors };
+async function getAuthorById (authorId) {
+  const { rows } = await pool.query(
+    "SELECT author_id, name, bio, date_joined FROM authors WHERE author_id = $1",
+    [authorId]
+  );
+  return rows;
+}
+
+export { getAuthors, getAuthorById };
