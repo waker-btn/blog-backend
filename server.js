@@ -5,6 +5,9 @@ import testRouter from "./routes/testRouter.js";
 const app = express();
 
 app.use("/test", testRouter);
+app.get("/", (req, res) => {
+  res.status(200).send("Hello, world!");
+});
 app.all("*splat", (req, res) => {
     res.status(404).send("404 Page Not Found");
 });
