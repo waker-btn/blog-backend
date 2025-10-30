@@ -1,8 +1,11 @@
 import express from "express";
 import "dotenv/config.js";
 import authorRouter from "./routes/authorRouter.js";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors());
 
 app.use("/authors", authorRouter);
 app.get("/", (req, res) => {
