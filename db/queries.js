@@ -20,7 +20,7 @@ async function getPosts() {
 
 async function getPostById (postId) {
   const { rows } = await pool.query(
-    "SELECT blog.blog_post_id, author.name, blog.title, blog.post, blog.date_written FROM blog_posts AS blog JOIN blog_authors ON blog.blog_post_id = blog_authors.blog_post_id JOIN authors AS author ON blog_authors.author_id = author.author_id WHERE post_id = $1 GROUP BY blog.blog_post_id, author.name",
+    "SELECT blog.blog_post_id, author.name, blog.title, blog.post, blog.date_written FROM blog_posts AS blog JOIN blog_authors ON blog.blog_post_id = blog_authors.blog_post_id JOIN authors AS author ON blog_authors.author_id = author.author_id WHERE blog_post_id = $1 GROUP BY blog.blog_post_id, author.name",
     [postId]
   );
   return rows[0];
