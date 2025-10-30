@@ -1,12 +1,14 @@
 import express from "express";
 import "dotenv/config.js";
 import authorRouter from "./routes/authorRouter.js";
+import postRouter from "./routes/postRouter.js";
 import cors from "cors";
 
 const app = express();
 
 app.use(cors());
 
+app.use("/posts", postRouter);
 app.use("/authors", authorRouter);
 app.get("/", (req, res) => {
   res.status(200).send("Hello, world!");
