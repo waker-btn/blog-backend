@@ -17,7 +17,7 @@ info:
 servers:
   - url: https://blog-backend-production-82fa.up.railway.app/
     description: Production server
-  - url: Staging URL would go here 
+  - url: http://localhost:4000/
     description: Internal staging server for testing
 
 paths:
@@ -33,6 +33,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
+    post:
+      summary: Creates a new author.
+      requestBody:
+        description: Author object that needs to be added.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+      responses:
+        "201":
+          description: Author created successfully.
   /authors/{id}:
     get:
       summary: Returns a single author by ID.
@@ -94,6 +106,7 @@ components:
       properties:
         author_id:
           type: integer
+          readOnly: true
         name:
           type: string
         bio:
@@ -106,6 +119,7 @@ components:
       properties:
         blog_post_id:
           type: integer
+          readOnly: true
         name:
           type: string
         title:

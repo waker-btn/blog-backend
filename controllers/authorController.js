@@ -1,4 +1,4 @@
-import { getAuthors, getAuthorById } from "../db/queries.js";
+import { getAuthors, getAuthorById, createAuthor} from "../db/queries.js";
 
 async function getAuthorsFromDB(req, res) {
   const authors = await getAuthors();
@@ -17,4 +17,11 @@ async function getAuthorByIdFromDB(req, res) {
   res.status(200).json(author);
 }
 
-export { getAuthorsFromDB, getAuthorByIdFromDB };
+async function createAuthorInDB(req, res) {
+  const authorData = req.body;
+  const newAuthorId = await createAuthor(authorData);
+  res.status(201).send(`Author created with ID: ${newAuthorId}`);
+}
+
+
+export { getAuthorsFromDB, getAuthorByIdFromDB, createAuthorInDB };
