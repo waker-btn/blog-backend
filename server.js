@@ -3,11 +3,14 @@ import "dotenv/config.js";
 import authorRouter from "./routes/authorRouter.js";
 import postRouter from "./routes/postRouter.js";
 import cors from "cors";
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './swagger.json' assert { type: "json" };
 
 const app = express();
 
 app.use(cors());
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/posts", postRouter);
 app.use("/authors", authorRouter);
 app.get("/", (req, res) => {

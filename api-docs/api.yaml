@@ -1,0 +1,117 @@
+openapi: 3.0.4
+info:
+  title: Sample Blog
+  description: |
+    This is a sample API designed for learning and practice purposes. It provides basic functionality for managing blog posts and their authors.
+
+    Users can create, read, update, and delete blog posts, as well as manage authors.
+    Each author can have multiple posts, and each post can have multiple authors.
+    Blog posts can also have tags assigned to them which Users can work with.
+
+    **Features:**
+
+    **Intended Use:**
+    This API is intended for educational or demonstration use, such as testing backend development skills, learning RESTful API design, or integrating with frontend applications.
+  version: "0.1"
+
+servers:
+  - url: https://blog-backend-production-82fa.up.railway.app/
+    description: Production server
+  - url: Staging URL would go here 
+    description: Internal staging server for testing
+
+paths:
+  /authors:
+    get:
+      summary: Returns a list of authors.
+      responses:
+        "200": # status code
+          description: A JSON array of authors.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
+  /authors/{id}:
+    get:
+      summary: Returns a single author by ID.
+      description: Retrieves details of a specific author using their unique ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the author to retrieve.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A single author object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+        "404":
+          description: Author not found.
+  /posts:
+    get:
+      summary: Returns a list of blog posts.
+      description: Retrieves all blog posts with their ID, author name, title, content, and date written.
+      responses:
+        "200":
+          description: A JSON array of posts.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+  /posts/{id}:
+    get:
+      summary: Returns a single blog post by ID.
+      description: Retrieves details of a specific blog post using its unique ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the blog post to retrieve.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A single post object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        "404":
+          description: Post not found.
+
+components:
+  schemas:
+    Author:
+      type: object
+      properties:
+        author_id:
+          type: integer
+        name:
+          type: string
+        bio:
+          type: string
+        date_joined:
+          type: string
+          format: date-time
+    Post:
+      type: object
+      properties:
+        blog_post_id:
+          type: integer
+        name:
+          type: string
+        title:
+          type: string
+        post:
+          type: string
+        date_written:
+          type: string
+          format: date-time
