@@ -10,7 +10,7 @@ async function getAuthorById (authorId) {
     "SELECT author_id, name, bio, date_joined FROM authors WHERE author_id = $1",
     [authorId]
   );
-  return rows[0];
+  return rows;
 }
 
 async function createAuthor(authorObj) {
@@ -30,7 +30,7 @@ async function getPostById (postId) {
     "SELECT blog.blog_post_id, author.name, blog.title, blog.post, blog.date_written FROM blog_posts AS blog JOIN blog_authors ON blog.blog_post_id = blog_authors.blog_post_id JOIN authors AS author ON blog_authors.author_id = author.author_id WHERE blog.blog_post_id = $1 GROUP BY blog.blog_post_id, author.name",
     [postId]
   );
-  return rows[0];
+  return rows;
 }
 
 async function createPost(postObj) {
@@ -62,4 +62,16 @@ async function authCheckPassword(authorId, password) {
 
 }
 
-export { getAuthors, getAuthorById, getPosts, getPostById, createAuthor, createPost, authCheckEmail, authCheckPassword };
+async function deletePost(postId) {
+  const deletePost = 'DELETE FROM blog_posts WHERE blog_post_id = $1 RETURNING blog_post_id;';
+  const res = await pool.query(deletePost, [postId]);
+  return res.rows;
+}
+
+async function deleteAuthor(authorId) {
+  const deleteAuthor = 'DELETE FROM authors WHERE author_id = $1 RETURNING author_id;';
+  const res = await pool.query(deleteAuthor, [authorId]);
+  return res.rows;
+}
+
+export { getAuthors, getAuthorById, getPosts, getPostById, createAuthor, createPost, authCheckEmail, authCheckPassword, deletePost, deleteAuthor };

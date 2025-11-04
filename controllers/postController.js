@@ -1,4 +1,4 @@
-import { getPosts, getPostById, createPost } from "../db/queries.js";
+import { getPosts, getPostById, createPost, deletePost} from "../db/queries.js";
 
 async function getPostsFromDB(req, res) {
   const posts = await getPosts();
@@ -24,4 +24,17 @@ async function createPostInDB(req, res) {
   res.status(201).send(`Post created with ID: ${newPostId}`);
 }
 
-export { getPostsFromDB, getPostByIdFromDB, createPostInDB };
+async function deletePostInDB(req, res) {
+  const postId = parseInt(req.params.id);
+
+  const deleted = await deletePost(postId);
+
+  if (deleted.length === 0) {
+    return res.status(404).send("Post not found");
+  }
+
+  res.status(204).end();
+  
+}
+
+export { getPostsFromDB, getPostByIdFromDB, createPostInDB, deletePostInDB };

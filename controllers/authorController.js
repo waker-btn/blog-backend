@@ -1,4 +1,4 @@
-import { getAuthors, getAuthorById, createAuthor } from "../db/queries.js";
+import { getAuthors, getAuthorById, createAuthor, deleteAuthor } from "../db/queries.js";
 
 async function getAuthorsFromDB(req, res) {
   const authors = await getAuthors();
@@ -24,5 +24,18 @@ async function createAuthorInDB(req, res) {
   res.status(201).send(`Author created with ID: ${newAuthorId}`);
 }
 
+async function deleteAuthorInDB(req, res) {
+  const authorId = parseInt(req.params.id);
 
-export { getAuthorsFromDB, getAuthorByIdFromDB, createAuthorInDB };
+  const deleted = await deleteAuthor(authorId);
+
+  if (deleted.length === 0) {
+    return res.status(404).send("Author not found");
+  }
+
+  res.status(204).end();
+  
+}
+
+
+export { getAuthorsFromDB, getAuthorByIdFromDB, createAuthorInDB, deleteAuthorInDB };
