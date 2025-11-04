@@ -1,4 +1,4 @@
-import { getPosts, getPostById } from "../db/queries.js";
+import { getPosts, getPostById, createPost } from "../db/queries.js";
 
 async function getPostsFromDB(req, res) {
   const posts = await getPosts();
@@ -17,4 +17,11 @@ async function getPostByIdFromDB(req, res) {
   res.status(200).json(post);
 }
 
-export { getPostsFromDB, getPostByIdFromDB };
+async function createPostInDB(req, res) {
+  const postData = req.body;
+  const newPostId = await createPost(postData);
+
+  res.status(201).send(`Post created with ID: ${newPostId}`);
+}
+
+export { getPostsFromDB, getPostByIdFromDB, createPostInDB };

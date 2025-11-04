@@ -33,4 +33,33 @@ async function getPostById (postId) {
   return rows[0];
 }
 
-export { getAuthors, getAuthorById, getPosts, getPostById, createAuthor };
+async function createPost(postObj) {
+  const {author_id, title, summary, post} = postObj;
+  const insertPost = 'INSERT INTO blog_posts (title, summary, post, date_written) VALUES ($1, $2, $3, NOW()) RETURNING blog_post_id;';
+  const insertLink = 'INSERT INTO blog_authors (blog_post_id, author_id) VALUES ($1, $2);';
+
+  const postRes = await pool.query(insertPost, [title, summary, post]);
+  const blog_post_id = postRes.rows[0].blog_post_id;
+
+  await pool.query(insertLink, [blog_post_id, author_id]);
+
+  return blog_post_id;
+}
+
+async function authCheckEmail(email) {
+
+  const queryText = 'SELECT author_id FROM authors WHERE email = $1;';
+  const res = await pool.query(queryText, [email]);
+  return res.rows[0]; 
+
+}
+
+async function authCheckPassword(authorId, password) {
+  
+  const queryText = 'SELECT author_id FROM authors WHERE author_id = $1 AND password = $2;';
+  const res = await pool.query(queryText, [authorId, password]);
+  return res.rows[0];
+
+}
+
+export { getAuthors, getAuthorById, getPosts, getPostById, createAuthor, createPost, authCheckEmail, authCheckPassword };
