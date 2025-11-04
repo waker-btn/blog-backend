@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { getAuthorsFromDB, getAuthorByIdFromDB, createAuthorInDB, deleteAuthorInDB} from "../controllers/authorController.js";
+import {
+  getAuthorsFromDB,
+  getAuthorByIdFromDB,
+  createAuthorInDB,
+  deleteAuthorInDB,
+} from "../controllers/authorController.js";
 import { validateAuthorKeys } from "../middleware/validateBody.js";
 import { authenticateUser } from "../middleware/authenticateUser.js";
 

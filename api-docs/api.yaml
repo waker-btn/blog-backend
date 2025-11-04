@@ -32,7 +32,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Author'
+                  $ref: "#/components/schemas/Author"
     post:
       summary: Creates a new author.
       requestBody:
@@ -41,7 +41,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Author'
+              $ref: "#/components/schemas/Author"
       responses:
         "201":
           description: Author created successfully.
@@ -62,7 +62,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Author'
+                $ref: "#/components/schemas/Author"
         "404":
           description: Author not found.
   /posts:
@@ -77,7 +77,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Post'
+                  $ref: "#/components/schemas/Post"
   /posts/{id}:
     get:
       summary: Returns a single blog post by ID.
@@ -95,7 +95,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Post'
+                $ref: "#/components/schemas/Post"
         "404":
           description: Post not found.
 

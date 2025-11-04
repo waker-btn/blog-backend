@@ -1,4 +1,9 @@
-import { getPosts, getPostById, createPost, deletePost} from "../db/queries.js";
+import {
+  getPosts,
+  getPostById,
+  createPost,
+  deletePost,
+} from "../db/queries.js";
 
 async function getPostsFromDB(req, res) {
   const posts = await getPosts();
@@ -34,7 +39,6 @@ async function deletePostInDB(req, res) {
   }
 
   res.status(204).end();
-  
 }
 
 export { getPostsFromDB, getPostByIdFromDB, createPostInDB, deletePostInDB };
