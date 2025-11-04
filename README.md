@@ -1,6 +1,6 @@
 # Blog Backend API
 
-A RESTful API backend for a blog platform built with Express.js and PostgreSQL. This service provides endpoints for managing blog posts and authors with basic authentication.
+A RESTful API backend for a blog platform built with **Node.js**, **Express.js** and **PostgreSQL**. This service provides endpoints for managing blog posts and authors with basic authentication.
 
 ## Features
 
