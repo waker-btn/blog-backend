@@ -3,6 +3,7 @@ import {
   getPostById,
   createPost,
   deletePost,
+  updatePost,
 } from "../db/queries.js";
 
 async function getPostsFromDB(req, res) {
@@ -41,4 +42,23 @@ async function deletePostInDB(req, res) {
   res.status(204).end();
 }
 
-export { getPostsFromDB, getPostByIdFromDB, createPostInDB, deletePostInDB };
+async function updatePostInDB(req, res) {
+  const postId = parseInt(req.params.id);
+  const updateData = req.body;
+
+  const updatedPost = await updatePost(postId, updateData);
+
+  if (updatedPost.length === 0) {
+    return res.status(404).send("Post not found");
+  }
+
+  res.status(200).json(updatedPost);
+}
+
+export {
+  getPostsFromDB,
+  getPostByIdFromDB,
+  createPostInDB,
+  deletePostInDB,
+  updatePostInDB,
+};

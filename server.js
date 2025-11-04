@@ -4,8 +4,7 @@ import authorRouter from "./routes/authorRouter.js";
 import postRouter from "./routes/postRouter.js";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
-import YAML from "yamljs";
-const swaggerDocument = YAML.load("./api-docs/api.yaml");
+import swaggerDocument from "./api-docs/api.json" with { type: "json" };
 
 const app = express();
 app.use(cors());

@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "swagger": "node ./api-docs/swagger.js"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,9 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "pg": "^8.16.3",
-    "swagger-ui-express": "^5.0.1",
-    "yamljs": "^0.3.0"
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "swagger-autogen": "^2.23.7"
   }
 }

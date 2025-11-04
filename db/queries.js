@@ -80,6 +80,40 @@ async function deleteAuthor(authorId) {
   return res.rows;
 }
 
+async function updatePost(postId, updateData) {
+  const { title, summary, post } = updateData;
+  const fields = [];
+  const values = [];
+  let queryText = "UPDATE blog_posts SET ";
+
+  if (title !== undefined) {
+    fields.push("title");
+    values.push(title);
+  }
+  if (summary !== undefined) {
+    fields.push("summary");
+    values.push(summary);
+  }
+  if (post !== undefined) {
+    fields.push("post");
+    values.push(post);
+  }
+
+  fields.forEach((field, index) => {
+    queryText += `${field} = $${index + 1}`;
+    if (index < fields.length - 1) {
+      queryText += ", ";
+    }
+  });
+
+  queryText += ` WHERE blog_post_id = $${fields.length + 1} RETURNING *;`;
+  values.push(postId);
+
+  console.log("Update Query: ", queryText, values);
+  const res = await pool.query(queryText, values);
+  return res.rows;
+}
+
 export {
   getAuthors,
   getAuthorById,
@@ -91,4 +125,5 @@ export {
   authCheckPassword,
   deletePost,
   deleteAuthor,
+  updatePost,
 };
